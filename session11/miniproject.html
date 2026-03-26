@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const students = [
+            { id: 1, name: "Nguyễn Văn Thi", age: 18, gpa: 10, status: "active" },
+            {id: 2, name: "Nguyễn Thị Hồng", age: 19, gpa: 9, status: "active" },
+            {id: 3, name: "Trần Văn An", age: 20, gpa: 7, status: "inactive" },
+            {id: 4, name: "Lê Thị Mai", age: 18, gpa: 8, status: "active" },
+        ];
+        do {
+            let choice = +prompt(
+            `---STUDENT MANAGEMENT SYSTEM---
+            1. Create Student
+            2. Read All Student
+            3. Filter Scholarship
+            4. Update Profile
+            5. Delete Record
+            6. Compliance Verify
+            7. Academic Stats
+            8. Data Normalization
+            0. Exit
+            Please enter your choice (0-8):`
+            );
+            switch(choice) {
+                case 1:
+                    createStudent();
+                    break;
+                case 2:
+                    readAllStudent();
+                    break;
+                case 3:
+                    filterScholarship();
+                    break;
+                case 4:
+                    updateStudent();
+                    break;
+                case 5:
+                    deleteRecord();
+                    break;
+                case 6:
+                    complianceVerify();
+                    break;
+                case 7:
+                    academicStats();
+                    break;
+                case 8:
+                    dataNomarlization();
+                    break;
+                case 0:
+                    alert("Exiting the program. Goodbye!");
+                    break;
+                default:
+                    alert("Invalid choice. Please enter a number between 0 and 8.");
+                    break;
+            }
+        } while(choice !== 0 );
+        function createStudent() {
+            let newStudent = {
+                id: +prompt("Nhập ID:"),
+                name: +prompt("Nhập tên:"),
+                age: +prompt("Nhập tuổi:"),
+                gpa: +prompt("Nhập điểm gpa:"),
+                status: +prompt("Nhập trạng thái sinh viên:"),
+            };
+            students.push(newstudent);
+            alert("Thêm sinh viên thành công!")
+        }
+        function readAllStudent() {
+            students.forEach(student => {
+                alert(`${student.id} | ${student.name} | ${student.age} | ${student.gpa} | ${student.status}`);
+            });
+        }
+        function filterScholarship() {
+            let scholarshipStudent = students.filter(student => student.gpa > 8);
+            alert("Danh sách sinh viên đủ điều kiện học bổng");
+            scholarshipStudent.forEach(student => {
+                alert(`${student.id} | ${student.name} | ${student.age} | ${student.gpa} | ${student.status}`);
+            });
+        }
+        function updateStudent() {
+            let updateId = +prompt("Nhập ID sinh viên:");
+            let studentToUpdate = students.find(student => student.id === updateId);
+            if(studentToUpdate) {
+                let newName = prompt("Nhập tên mới:");
+                studentToUpdate.name = newName;
+                let newGpa = +prompt("Nhập điểm gpa mới:");
+                studentToUpdate.gpa = newGpa;
+                alert("Cập nhật thành công");
+            } else {
+                alert("Không tìm thấy sinh viên");
+            }
+        }
+        function deleteRecord() {
+            let idDelete = +prompt("Nhập id sinh viên:");
+            let findStudent = students.find(student => student.id === idDelete);
+            if(findStudent){
+            let checkUser = prompt(`Bạn muốn muốn xóa: 
+            ${findStudent.id} | ${findStudent.name} | ${findStudent.age} | ${findStudent.gpa} | ${findStudent.status}
+            Nhấn Yes để xóa!`
+            );
+            } else if(checkUser === "Yes"){
+                students = students.filter(student => student.id !== idDelete);
+                students.forEach(student => {
+                    alert(`${student.id} | ${student.name} | ${student.age} | ${student.gpa} | ${student.status}`);
+                });
+                alert("Xóa sinh viên thành công!");
+            } else {
+                alert("Không tìm thấy sinh viên")
+            }
+        }
+        function complianceVerify() {
+            let checkAge = students.some(student => student.age < 18);
+            console.log(`Có sinh viên nào dưới 18 tuổi không? ${checkAge ? "Có" : "Không"}`);
+            let checkActive = students.every(student => student.status === "active");
+            console.log(`Tất cả sinh viên đều đang hoạt động không? ${checkActive ? "Có" : "Không"}`);
+        }
+        function academicStats() {
+            let averageGpa = students.reduce((total, student) => total + student.gpa, 0) / students.length;
+            console.log(`Điểm trung bình của tất cả sinh viên: ${averageGpa.toFixed(2)}`);
+        }
+        function dataNormalization() {
+            let newList = students.map(student => student.name.toLocaleLowerCase());
+            console.log("Danh sách tên sinh viên sau khi chuẩn hóa:");
+            newList.forEach(name => console.log(name));
+        }
+    </script>
+</body>
+</html>
